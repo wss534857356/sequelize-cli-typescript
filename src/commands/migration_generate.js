@@ -22,7 +22,7 @@ exports.handler = function (args) {
 
   fs.writeFileSync(
     helpers.path.getMigrationSourcePath(args.name),
-    helpers.template.render('migrations/skeleton.js', {}, {
+    helpers.template.render('migrations/skeleton.ts', {}, {
       beautify: false
     })
   );
