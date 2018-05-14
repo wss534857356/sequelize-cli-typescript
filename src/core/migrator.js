@@ -46,6 +46,10 @@ export function getMigrator (type, args) {
       migratorPath = helpers.path.getMigrationsCompiledPath();
     }
 
+    if ( type === 'seeder' ) {
+      migratorPath = helpers.path.getSeedersCompiledPath();
+    }
+
     const sequelize = getSequelizeInstance();
     const migrator = new Umzug({
       storage: helpers.umzug.getStorage(type),
@@ -54,7 +58,7 @@ export function getMigrator (type, args) {
       migrations: {
         params: [sequelize.getQueryInterface(), Sequelize],
         path: migratorPath,
-        pattern: /\.ts$/,
+        pattern: /\.js$/,
         wrap: fun => {
           if (fun.length === 3) {
             return Bluebird.promisify(fun);
