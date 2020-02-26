@@ -1,6 +1,6 @@
 {
   "name": "sequelize-cli-typescript",
-  "version": "5.1.1",
+  "version": "5.1.3",
   "description": "The Sequelize CLI (TypeScript)",
   "bin": {
     "sequelize": "./lib/sequelize"
@@ -12,7 +12,7 @@
     "js-beautify": "^1.8.8",
     "lodash": "^4.17.5",
     "resolve": "^1.5.0",
-    "umzug": "^2.1.0",
+    "umzug": "https://github.com/wildcookie007/umzug",
     "yargs": "^12.0.5"
   },
   "devDependencies": {
@@ -51,7 +51,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/douglas-treadwell/sequelize-cli-typescript.git"
+    "url": "git://github.com/wildcookie007/sequelize-cli-typescript.git"
   },
   "keywords": [
     "sequelize",
@@ -74,9 +74,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/douglas-treadwell/sequelize-cli-typescript/issues"
+    "url": "https://github.com/wildcookie007/sequelize-cli-typescript/issues"
   },
-  "homepage": "https://github.com/douglas-treadwell/sequelize-cli-typescript",
+  "homepage": "https://github.com/wildcookie007/sequelize-cli-typescript",
   "engines": {
     "node": ">=6.0.0"
   }
