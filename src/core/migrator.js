@@ -1,7 +1,7 @@
 import Umzug from 'umzug';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import { readFileSync } from 'path';
+import { readFileSync } from 'fs';
 import typescript from 'typescript';
 
 import helpers from '../helpers/index';
