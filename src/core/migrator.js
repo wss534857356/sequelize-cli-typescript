@@ -2,6 +2,7 @@ import Umzug from 'umzug';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import { readFileSync } from 'fs';
+import { dirname } from 'path';
 import typescript from 'typescript';
 
 import helpers from '../helpers/index';
