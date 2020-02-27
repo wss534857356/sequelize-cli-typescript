@@ -6,6 +6,7 @@ import { dirname } from 'path';
 import typescript from 'typescript';
 
 import helpers from '../helpers/index';
+import resolve from 'resolve';
 
 const Sequelize = helpers.generic.getSequelize();
 
@@ -69,7 +70,7 @@ export function getMigrator (type, args) {
           const m = new Module(path, module.parent);
           m.filename = path;
           // eslint-disable-next-line no-undef
-          m.paths = Module._nodeModulePaths(dirname(path));
+          m.paths = [...Module._nodeModulePaths(dirname(path)), resolve(__dirname, '../../')];
           m._compile(transpiled.outputText, path);
           return m.exports;
         },
