@@ -64,14 +64,28 @@ export function getMigrator (type, args) {
         path: migratorPath,
         pattern: /\.[jt]s$/,
         customResolver: path => {
-          const typescriptSrc = readFileSync(path, 'utf8');
-          const transpiled = typescript.transpileModule(typescriptSrc, {});
+          const program = typescript.createProgram(path, {});
+          const emitResult = program.emit();
+
+          const allDiagnostics = typescript
+            .getPreEmitDiagnostics(program)
+            .concat(emitResult.diagnostics);
+
+          allDiagnostics.forEach(diagnostic => {
+            if (diagnostic.file) {
+              const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+              const message = typescript.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+              console.log(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+            } else {
+              console.log(typescript.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
+            }
+          });
           const Module = module.constructor;
           const m = new Module(path, module.parent);
           m.filename = path;
           // eslint-disable-next-line no-undef
-          m.paths = [...Module._nodeModulePaths(dirname(path)), resolve(__dirname, '../../'), resolve(__dirname, '../')];
-          m._compile(transpiled.outputText, path);
+          m.paths = [...Module._nodeModulePaths(dirname(path)), resolve(__dirname, '../test/helpers'), resolve(__dirname, '../')];
+          m._compile(emitResult, path);
           return m.exports;
         },
         wrap: fun => {
