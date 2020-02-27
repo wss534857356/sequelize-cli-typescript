@@ -1,6 +1,8 @@
 import Umzug from 'umzug';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import { readFileSync } from 'path';
+import typescript from 'typescript';
 
 import helpers from '../helpers/index';
 
@@ -59,6 +61,17 @@ export function getMigrator (type, args) {
         params: [sequelize.getQueryInterface(), Sequelize],
         path: migratorPath,
         pattern: /\.[jt]s$/,
+        customResolver: path => {
+          const typescriptSrc = readFileSync(path, 'utf8');
+          const transpiled = typescript.transpileModule(typescriptSrc, {});
+          const Module = module.constructor;
+          const m = new Module(path, module.parent);
+          m.filename = path;
+          // eslint-disable-next-line no-undef
+          m.paths = Module._nodeModulePaths(dirname(path));
+          m._compile(transpiled.outputText, path);
+          return m.exports;
+        },
         wrap: fun => {
           if (fun.length === 3) {
             return Bluebird.promisify(fun);
