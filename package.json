@@ -13,7 +13,7 @@
     "lodash": "^4.17.5",
     "resolve": "^1.5.0",
     "typescript": "^3.8.2",
-    "umzug": "git+https://github.com/wildcookie007/umzug.git",
+    "umzug": "^2.2.0",
     "yargs": "^12.0.5"
   },
   "devDependencies": {
