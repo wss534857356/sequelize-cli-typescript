@@ -1,5 +1,5 @@
 {
-  "name": "sequelize-cli-typescript",
+  "name": "sequelize-cli-typescript-maintain",
   "version": "5.1.3",
   "description": "The Sequelize CLI (TypeScript)",
   "bin": {
